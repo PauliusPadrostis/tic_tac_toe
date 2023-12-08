@@ -27,28 +27,30 @@ def update_board(board, num_choice, player):
 
 
 def change_current_player():
-    ...
+    global current_player_sign, current_player_name
+    if current_player_name == "Player1":
+        current_player_name = "Player2"
+        current_player_sign = "O"
+    else:
+        current_player_name = "Player1"
+        current_player_sign = "X"
 
 
-players_dict = {"Player1": "X", "Player2": "O"}
-players = list(players_dict.keys())
-current_player_name = players[0]
-current_player_sign = players_dict["Player1"]
+
+
 
 print("\nWelcome to TIC-TAC-TOE!\n")
 
 build_board()
+current_player_name = "Player1"
+current_player_sign = "X"
+
 while True:
 
-    if current_player_name == "Player1":
-        replace_num = input(f"\n{current_player_name} select a number: ")
-        print("\n")
-        update_board(board, replace_num, current_player_sign)
-        current_player_name = players[1]
-        current_player_sign = players_dict[current_player_name]
-    else:
-        replace_num = input(f"\n{current_player_name} select a number: ")
-        print("\n")
-        update_board(board, replace_num, current_player_sign)
-        current_player_name = players[0]
-        current_player_sign = players_dict[current_player_name]
+
+    replace_num = input(f"\n{current_player_name} select a number: ")
+    print("\n")
+    update_board(board, replace_num, current_player_sign)
+    change_current_player()
+
+
