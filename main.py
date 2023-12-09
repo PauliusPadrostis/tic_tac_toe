@@ -1,3 +1,5 @@
+import sys
+
 from models.game import TicTacToe
 from models.player import Player
 
@@ -14,13 +16,19 @@ game = TicTacToe(player1, player2)
 game.build_board()
 
 while True:
-
     print("\n")
     game.update_board()
     if game.check_win():
         print(f"\n{game.current_player_name} wins!")
         break
     elif game.check_if_draw():
-        print("It's a draw!")
-        break
+        print("\nIt's a draw!")
+        again = input("\nPlay again? (Y/N): ")
+        if again.lower() == "y" or again.lower() == "yes":
+            game.board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+            print("\n")
+            game.build_board()
+            continue
+        else:
+            sys.exit()
     game.change_current_player()
