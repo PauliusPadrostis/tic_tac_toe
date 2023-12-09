@@ -28,11 +28,11 @@ def update_board(board, num_choice, player):
 
 def change_current_player():
     global current_player_sign, current_player_name
-    if current_player_name == "Player1":
-        current_player_name = "Player2"
+    if current_player_name == player1:
+        current_player_name = player2
         current_player_sign = "O"
     else:
-        current_player_name = "Player1"
+        current_player_name = player1
         current_player_sign = "X"
 
 
@@ -86,7 +86,11 @@ def check_win(board):
 print("\nWelcome to TIC-TAC-TOE!\n")
 
 build_board()
-current_player_name = "Player1"
+
+player1 = input("Player 1 enter your name: ")
+player2 = input("Player 2 enter your name: ")
+
+current_player_name = player1
 current_player_sign = "X"
 
 while True:
