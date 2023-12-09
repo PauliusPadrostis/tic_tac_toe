@@ -85,3 +85,17 @@ class TicTacToe:
     def check_win(self):
         if self.check_diagonal() or self.check_vertical() or self.check_horizontal():
             return True
+
+    def check_if_draw(self):
+        counter = 0
+        for row in self.board:
+            for item in row:
+                if item not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                    counter += 1
+                else:
+                    continue
+        if counter != 9:
+            return False
+        else:
+            return True
+

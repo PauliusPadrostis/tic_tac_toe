@@ -19,4 +19,7 @@ while True:
     if game.check_win():
         print(f"{game.current_player_name} wins!")
         break
+    elif game.check_if_draw():
+        print("It's a draw!")
+        break
     game.change_current_player()
