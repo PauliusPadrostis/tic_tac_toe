@@ -1,4 +1,3 @@
-from models.player import *
 
 
 class TicTacToe:
@@ -27,6 +26,7 @@ class TicTacToe:
             flat_board = [item for row in self.board for item in row]
             try:
                 num_choice = input(f"\n{self.current_player_name} select a number: ")
+                print("\n")
                 if int(num_choice) > 9:
                     print("Number outside of allowed range. Try again!")
                     continue
