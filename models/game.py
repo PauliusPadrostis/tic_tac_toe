@@ -24,10 +24,14 @@ class TicTacToe:
     def update_board(self):
 
         while True:
+            flat_board = [item for row in self.board for item in row]
             try:
                 num_choice = input(f"\n{self.current_player_name} select a number: ")
                 if int(num_choice) > 9:
                     print("Number outside of allowed range. Try again!")
+                    continue
+                elif num_choice not in flat_board:
+                    print("That spot is already taken. Try again!")
                     continue
                 else:
                     break
