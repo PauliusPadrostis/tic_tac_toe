@@ -1,3 +1,4 @@
+import colorama
 
 
 class TicTacToe:
@@ -7,7 +8,9 @@ class TicTacToe:
         self.v_line = "|"
         self.h_line = "+---+---+---+"
         self.player1 = player1
+        self.player1.name = colorama.Fore.RED + player1.name + colorama.Fore.RESET
         self.player2 = player2
+        self.player2.name = colorama.Fore.BLUE + player2.name + colorama.Fore.RESET
         self.current_player_name = player1.name
         self.current_player_sign = player1.sign
 
@@ -16,7 +19,9 @@ class TicTacToe:
         print(self.spacer)
         for row in self.board[::-1]:
             print(f"\t{self.h_line}")
-            print(f"\t{self.v_line} {row[0]} {self.v_line} {row[1]} {self.v_line} {row[2]} {self.v_line}")
+            print("\t" + self.v_line + " " + colorama.Fore.BLACK + row[0] + " " + colorama.Fore.RESET + self.v_line +
+                  " " + colorama.Fore.BLACK + row[1] + " " + colorama.Fore.RESET + self.v_line +
+                  " " + colorama.Fore.BLACK + row[2] + " " + colorama.Fore.RESET + self.v_line)
         print(f"\t{self.h_line}")
         print(self.spacer)
 
@@ -45,7 +50,10 @@ class TicTacToe:
             for xx in x:
                 col += 1
                 if xx == num_choice:
-                    self.board[row][col] = self.current_player_sign
+                    if self.current_player_sign == "X":
+                        self.board[row][col] = colorama.Fore.RED + self.current_player_sign + colorama.Fore.RESET
+                    elif self.current_player_sign == "O":
+                        self.board[row][col] = colorama.Fore.BLUE + self.current_player_sign + colorama.Fore.RESET
                     self.build_board()
                     break
 

@@ -1,5 +1,4 @@
 import sys
-
 from models.game import TicTacToe
 from models.player import Player
 
