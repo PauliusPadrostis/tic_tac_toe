@@ -24,12 +24,15 @@ class TicTacToe:
     def update_board(self):
 
         while True:
-            num_choice = input(f"\n{self.current_player_name} select a number: ")
-            if num_choice not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                print("Wrong values. Try again!")
-                continue
-            else:
-                break
+            try:
+                num_choice = input(f"\n{self.current_player_name} select a number: ")
+                if int(num_choice) > 9:
+                    print("Number outside of allowed range. Try again!")
+                    continue
+                else:
+                    break
+            except ValueError:
+                print("Entered value is not a number. Try again!")
 
         row = -1
         for x in self.board:
