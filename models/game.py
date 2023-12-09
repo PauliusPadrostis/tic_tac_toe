@@ -1,5 +1,6 @@
 from models.player import *
 
+
 class TicTacToe:
     def __init__(self, player1, player2):
         self.board = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
@@ -22,7 +23,13 @@ class TicTacToe:
 
     def update_board(self):
 
-        num_choice = input(f"\n{self.current_player_name} select a number: ")
+        while True:
+            num_choice = input(f"\n{self.current_player_name} select a number: ")
+            if num_choice not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                print("Wrong values. Try again!")
+                continue
+            else:
+                break
 
         row = -1
         for x in self.board:
@@ -98,4 +105,3 @@ class TicTacToe:
             return False
         else:
             return True
-
