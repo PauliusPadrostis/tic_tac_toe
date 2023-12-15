@@ -2,24 +2,6 @@ import tkinter as tk
 from tkinter import *
 from PIL import Image, ImageFilter, ImageTk
 
-
-current_player = "X"
-
-
-# Create function to place 'x' or 'o' on buttons and check for current player and if square is empty.
-def update_board(button):
-    global current_player
-    if button["text"] == "":
-        if current_player == "X":
-            button.config(text="X")
-            current_player = "O"
-        else:
-            button.config(text="O")
-            current_player = "X"
-    else:
-        pass
-
-
 root = tk.Tk()  # Create main window
 root.geometry("1280x720")  # Set main window size to "1280x720"
 root.title("TIC-TAC-TOE")  # Set the title of the main window
@@ -40,28 +22,46 @@ lbl_background.place(x=0, y=0, relwidth=1, relheight=1)
 board_frame = tk.Frame()
 board_frame.pack(pady=150)
 
-# First (bottom) row
-b1 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b1))
-b1.grid(row=2, column=0, padx=2, pady=2)
-b2 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b2))
-b2.grid(row=2, column=1, padx=2, pady=2)
-b3 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b3))
-b3.grid(row=2, column=2, padx=2, pady=2)
+# Change button creation
+buttons = {}
+current_player = "X"
 
-# Second (middle) row
-b4 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b4))
-b4.grid(row=1, column=0, padx=2, pady=2)
-b5 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b5))
-b5.grid(row=1, column=1, padx=2, pady=2)
-b6 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b6))
-b6.grid(row=1, column=2, padx=2, pady=2)
 
-# Third (top) row
-b7 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b7))
-b7.grid(row=0, column=0, padx=2, pady=2)
-b8 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b8))
-b8.grid(row=0, column=1, padx=2, pady=2)
-b9 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge", command=lambda: update_board(b9))
-b9.grid(row=0, column=2, padx=2, pady=2)
+def create_buttons():
+    row = 0
+    button_id = 1
+    for x in range(0, 3):
+        col = 0
+        row += 1
+        for xx in range(0, 3):
+            col += 1
+            b = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge",
+                          command=lambda button_id=button_id: update_board(f"b{button_id}"))
+            buttons[f"b{button_id}"] = b
+            buttons[f"b{button_id}"].grid(row=row, column=col)
+            button_id += 1
+
+
+create_buttons()
+
+
+# Create function to place 'x' or 'o' on buttons and check for current player and if square is empty.
+def update_board(button):
+    global current_player
+    if buttons[button].cget("text") == "":
+        if current_player == "X":
+            buttons[button].config(text="X")
+            current_player = "O"
+        else:
+            buttons[button].config(text="O")
+            current_player = "X"
+    else:
+        pass
+
+
+# Create function to check for horizontal / vertical / diagonal button occupancy
+def check_win_condition(button_dict):
+    pass
+
 
 root.mainloop()
