@@ -20,7 +20,7 @@ lbl_background.place(x=0, y=0, relwidth=1, relheight=1)
 
 # Create frame for board
 board_frame = tk.Frame()
-board_frame.pack(pady=150)
+board_frame.pack(pady=100)
 
 # Change button creation
 buttons = {}
@@ -81,13 +81,19 @@ def check_win_conditions(button_dict):
         [6, 4, 2]  # Diagonal 2
     ]
     # BLACK MAGIC
-    for comination in win_comb:
-        if all(buttons[avail_buttons[i]].cget("text") in avail_signs for i in comination):
+    for combination in win_comb:
+        if all(buttons[avail_buttons[i]].cget("text") == current_player for i in combination):
             disable_buttons(button_dict)
-            print("WIN")
+            create_win_message()
             break
 
 
+def create_win_message():
+    win_frame = tk.Frame(root, pady=20)
+    win_frame.pack(anchor="n")
+
+    win_label = tk.Label(win_frame, text="WE HAVE A WINNER!", font=("Arial", 20), )
+    win_label.pack()
 
 
 root.mainloop()
