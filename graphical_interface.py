@@ -1,32 +1,53 @@
-import sys
-from models.game import TicTacToe
-from models.player import Player
-import tkinter
-import customtkinter
+import tkinter as tk
+from tkinter import *
+from PIL import Image, ImageFilter, ImageTk
 
-customtkinter.set_appearance_mode("dark")
-customtkinter.set_default_color_theme("blue")
+root = tk.Tk()  # Create main window
+root.geometry("1280x720")  # Set main window size to "1280x720"
+root.title("TIC-TAC-TOE") # Set the title of the main window
+root.resizable(False, False) # Lock the window size
 
-root = tkinter.Tk()
-root.geometry("1400x800")
-root.title("TIC-TAC-TOE")
+# Using PIL to blur out the background image
+image = Image.open("background.png")
+blurred_image = image.filter(ImageFilter.GaussianBlur(radius=7))
 
-button_coords = [(0.37, 0.75), (0.50, 0.75), (0.63, 0.75), (0.37, 0.523), (0.50, 0.523), (0.63, 0.523),
-                 (0.37, 0.296), (0.50, 0.296), (0.63, 0.296)]
+# Converting the blurred photo to a format usable by tkinter
+blurred_photo = ImageTk.PhotoImage(blurred_image)
+
+# Setting the background image
+lbl_background = tk.Label(root, image=blurred_photo)
+lbl_background.place(x=0, y=0, relwidth=1, relheight=1)
+
+# Create frame for board
+board_frame = tk.Frame()
+board_frame.pack(pady=150)
+
+# First (bottom) row
+b1 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b1.grid(row=2, column=0, padx=2, pady=2)
+b2 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b2.grid(row=2, column=1, padx=2, pady=2)
+b3 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b3.grid(row=2, column=2, padx=2, pady=2)
+
+# Second (middle) row
+b4 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b4.grid(row=1, column=0, padx=2, pady=2)
+b5 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b5.grid(row=1, column=1, padx=2, pady=2)
+b6 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b6.grid(row=1, column=2, padx=2, pady=2)
+
+# Third (top) row
+b7 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b7.grid(row=0, column=0, padx=2, pady=2)
+b8 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b8.grid(row=0, column=1, padx=2, pady=2)
+b9 = tk.Button(master=board_frame, text="", width=16, height=8, relief="ridge")
+b9.grid(row=0, column=2, padx=2, pady=2)
 
 
-def button_function():
-    pass
 
-
-buttons = {}
-
-for i, button_coords in enumerate(button_coords):
-    button = customtkinter.CTkButton(master=root, text=" ", border_color="black", border_width=2, width=170, height=170,
-                                     corner_radius=1, fg_color="transparent", command=button_function())
-
-    button.place(relx=button_coords[0], rely=button_coords[1], anchor=tkinter.CENTER)
-    buttons[f"b{i+1}"] = button
 
 
 root.mainloop()
