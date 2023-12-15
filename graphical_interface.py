@@ -51,17 +51,43 @@ def update_board(button):
     if buttons[button].cget("text") == "":
         if current_player == "X":
             buttons[button].config(text="X")
+            check_win_conditions(buttons)
             current_player = "O"
         else:
             buttons[button].config(text="O")
+            check_win_conditions(buttons)
             current_player = "X"
     else:
         pass
 
 
+def disable_buttons(button_dict):
+    for button in button_dict:
+        button_dict[button].config(state="disabled")
+
+
 # Create function to check for horizontal / vertical / diagonal button occupancy
-def check_win_condition(button_dict):
-    pass
+def check_win_conditions(button_dict):
+    avail_buttons = ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"]
+    avail_signs = ["X", "O"]
+    win_comb = [
+        [0, 1, 2],  # Row 1
+        [3, 4, 5],  # Row 2
+        [6, 7, 8],  # Row 3
+        [0, 3, 6],  # Column 1
+        [1, 4, 7],  # Column 2
+        [2, 5, 8],  # Column 3
+        [0, 4, 8],  # Diagonal 1
+        [6, 4, 2]  # Diagonal 2
+    ]
+    # BLACK MAGIC
+    for comination in win_comb:
+        if all(buttons[avail_buttons[i]].cget("text") in avail_signs for i in comination):
+            disable_buttons(button_dict)
+            print("WIN")
+            break
+
+
 
 
 root.mainloop()
