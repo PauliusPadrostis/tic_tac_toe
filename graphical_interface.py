@@ -106,6 +106,7 @@ def check_win_conditions(button_dict):
         if all(buttons[avail_buttons[i]].cget("text") == current_player for i in combination):
             disable_buttons(button_dict)
             create_win_message()
+            play_again()
             break
 
 
@@ -117,26 +118,32 @@ def check_draw(button_dict):
     if counter == 9:
         disable_buttons(button_dict)
         create_draw_message()
+        play_again()
         return True
     else:
         pass
 
 
 def create_draw_message():
-    win_frame = tk.Frame(root, pady=20)
-    win_frame.pack(anchor="n")
-
-    win_label = tk.Label(win_frame, text="IT'S A DRAW", font=("Arial", 20), borderwidth=20)
-    win_label.pack()
+    win_label = tk.Label(root, text="IT'S A DRAW", font=("Arial", 20))
+    win_label.place(relx=0.43, rely=0.7)
 
 
 # Creates a win message at the bottom of the screen if someone's won.
 def create_win_message():
-    win_frame = tk.Frame(root, pady=20)
-    win_frame.pack(anchor="n")
+    win_label = tk.Label(root, text="WE HAVE A WINNER!", font=("Arial", 20), background="white")
+    win_label.place(relx=0.39, rely=0.7)
 
-    win_label = tk.Label(win_frame, text="WE HAVE A WINNER!", font=("Arial", 20), borderwidth=20)
-    win_label.pack()
+
+def play_again():
+    again_button = tk.Button(root, text="Play Again?", font=("Arial", 20), command=clear_board)
+    again_button.place(relx=0.43, rely=0.8)
+
+
+def clear_board():
+    buttons.clear()
+    create_buttons()
+
 
 
 root.mainloop()
