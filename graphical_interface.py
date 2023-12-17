@@ -18,6 +18,24 @@ blurred_photo = ImageTk.PhotoImage(blurred_image)
 lbl_background = tk.Label(root, image=blurred_photo)
 lbl_background.place(x=0, y=0, relwidth=1, relheight=1)
 
+
+def open_game_window():
+    # Hide the welcome window
+    welcome_frame.pack_forget()
+    # Show the main game window
+    root.deiconify()
+
+
+welcome_frame = tk.Frame(root, width=1280, height=720)
+welcome_frame.pack()
+welcome_frame.pack_propagate(False)
+
+welcome_label = tk.Label(welcome_frame, text="WELCOME to TIC-TAC-TOE", font=("Arial", 40))
+welcome_label.place(relx=0.5, rely=0.4, anchor=tk.CENTER)
+
+play_button = tk.Button(welcome_frame, text="PLAY", font=("Arial", 40), command=open_game_window)
+play_button.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
+
 # Create frame for board
 board_frame = tk.Frame()
 board_frame.pack(pady=100)
@@ -90,6 +108,7 @@ def check_win_conditions(button_dict):
             create_win_message()
             break
 
+
 def check_draw(button_dict):
     counter = 0
     for item in button_dict:
@@ -102,12 +121,14 @@ def check_draw(button_dict):
     else:
         pass
 
+
 def create_draw_message():
     win_frame = tk.Frame(root, pady=20)
     win_frame.pack(anchor="n")
 
     win_label = tk.Label(win_frame, text="IT'S A DRAW", font=("Arial", 20), borderwidth=20)
     win_label.pack()
+
 
 # Creates a win message at the bottom of the screen if someone's won.
 def create_win_message():
