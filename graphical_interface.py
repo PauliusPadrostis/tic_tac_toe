@@ -51,22 +51,25 @@ def update_board(button):
     if buttons[button].cget("text") == "":
         if current_player == "X":
             buttons[button].config(text="X")
+            check_draw(buttons)
             check_win_conditions(buttons)
             current_player = "O"
         else:
             buttons[button].config(text="O")
+            check_draw(buttons)
             check_win_conditions(buttons)
             current_player = "X"
     else:
         pass
 
 
+# Function to disable all the buttons if there was a win.
 def disable_buttons(button_dict):
     for button in button_dict:
         button_dict[button].config(state="disabled")
 
 
-# Create function to check for horizontal / vertical / diagonal button occupancy
+# Create function to check for horizontal / vertical / diagonal button occupancy.
 def check_win_conditions(button_dict):
     avail_buttons = ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"]
     avail_signs = ["X", "O"]
@@ -87,12 +90,31 @@ def check_win_conditions(button_dict):
             create_win_message()
             break
 
+def check_draw(button_dict):
+    counter = 0
+    for item in button_dict:
+        if button_dict[item].cget("text") in ["X", "O"]:
+            counter += 1
+    if counter == 9:
+        disable_buttons(button_dict)
+        create_draw_message()
+        return True
+    else:
+        pass
 
+def create_draw_message():
+    win_frame = tk.Frame(root, pady=20)
+    win_frame.pack(anchor="n")
+
+    win_label = tk.Label(win_frame, text="IT'S A DRAW", font=("Arial", 20), borderwidth=20)
+    win_label.pack()
+
+# Creates a win message at the bottom of the screen if someone's won.
 def create_win_message():
     win_frame = tk.Frame(root, pady=20)
     win_frame.pack(anchor="n")
 
-    win_label = tk.Label(win_frame, text="WE HAVE A WINNER!", font=("Arial", 20), )
+    win_label = tk.Label(win_frame, text="WE HAVE A WINNER!", font=("Arial", 20), borderwidth=20)
     win_label.pack()
 
 
